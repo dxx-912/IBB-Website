@@ -1,0 +1,197 @@
+/* ============================================================================
+   IBB — Reset, typography, layout primitives, motion primitives
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + var(--s-3));
+}
+
+body {
+  margin: 0;
+  background: var(--surface-white);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;         /* belt-and-braces: nothing may scroll the page sideways */
+}
+
+img, svg, video { display: block; max-width: 100%; }
+img { height: auto; }
+
+/* ---- headings ----------------------------------------------------------- */
+h1, h2, h3, h4 {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  text-wrap: balance;
+}
+h1 { font-size: var(--fs-display); line-height: var(--lh-tight); letter-spacing: var(--ls-tight); }
+h2 { font-size: var(--fs-h2); letter-spacing: -.014em; }
+h3 { font-size: var(--fs-h3); letter-spacing: -.008em; }
+h4 { font-size: var(--fs-h4); font-family: var(--font-body); font-weight: 600; }
+
+p { margin: 0; }
+p + p { margin-top: var(--s-2); }
+
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+/* ---- links -------------------------------------------------------------- */
+a { color: var(--brand-primary-mid); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--brand-primary); }
+
+/* ---- focus: always visible, never removed ------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+.on-dark :focus-visible, .is-dark :focus-visible { outline-color: var(--brand-accent); }
+
+::selection { background: var(--brand-accent); color: var(--brand-primary-dark); }
+
+/* ---- skip link ---------------------------------------------------------- */
+.skip-link {
+  position: absolute; left: var(--s-2); top: -100px; z-index: 200;
+  padding: var(--s-1) var(--s-2);
+  background: var(--brand-accent); color: var(--brand-primary-dark);
+  font-weight: 600; font-size: var(--fs-sm); border-radius: var(--radius-sm);
+  text-decoration: none; transition: top var(--dur-fast) var(--ease);
+}
+.skip-link:focus { top: var(--s-2); }
+
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ============================================================================
+   Layout primitives
+   ========================================================================== */
+
+.shell {                       /* the one content container, used everywhere */
+  width: 100%;
+  max-width: var(--content);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.shell--wide   { max-width: var(--content-wide); }
+.shell--narrow { max-width: var(--content-narrow); }
+
+.section { padding-block: var(--section-y); }
+.section--tight { padding-block: var(--section-y-tight); }
+
+/* Section ground colours — alternated down each page so no two adjacent
+   sections share a background and dividers are never needed. */
+.section--white { background: var(--surface-white); }
+.section--light { background: var(--surface-light); }
+.section--navy  { background: var(--brand-primary-dark); }
+.section--blue  { background: var(--brand-primary); }
+
+.section--navy, .section--blue { color: var(--text-on-dark-muted); }
+.section--navy h1, .section--navy h2, .section--navy h3, .section--navy h4,
+.section--blue h1, .section--blue h2, .section--blue h3, .section--blue h4 { color: var(--text-on-dark); }
+
+/* ---- grid helpers ------------------------------------------------------- */
+.grid { display: grid; gap: var(--s-4); }
+.grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media (max-width: 1199px) {
+  .grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .grid--2, .grid--3, .grid--4 { grid-template-columns: minmax(0, 1fr); }
+}
+
+.stack > * + * { margin-top: var(--s-2); }
+.stack-3 > * + * { margin-top: var(--s-3); }
+.stack-4 > * + * { margin-top: var(--s-4); }
+
+.lede {
+  font-size: var(--fs-lede);
+  line-height: 1.6;
+  color: var(--text-body);
+  max-width: 62ch;
+}
+.section--navy .lede, .section--blue .lede { color: var(--text-on-dark-muted); }
+
+.measure { max-width: 62ch; }
+.center { text-align: center; margin-inline: auto; }
+
+/* ============================================================================
+   The logo mark
+   Rendered as a CSS mask so a single traced SVG can be painted in any brand
+   colour, at any size, and animated — rather than shipping one PNG per colour.
+   ========================================================================== */
+.bear {
+  display: block;
+  aspect-ratio: var(--bear-ratio);
+  background-color: currentColor;
+  -webkit-mask-image: url(../assets/logo/bear.svg);
+          mask-image: url(../assets/logo/bear.svg);
+  -webkit-mask-repeat: no-repeat;   mask-repeat: no-repeat;
+  -webkit-mask-position: center;    mask-position: center;
+  -webkit-mask-size: contain;       mask-size: contain;
+}
+/* Below ~48px the continent line work disappears; swap to the simplified mark. */
+.bear--simple {
+  aspect-ratio: var(--bear-simple-ratio);
+  -webkit-mask-image: url(../assets/logo/bear-simple.svg);
+          mask-image: url(../assets/logo/bear-simple.svg);
+}
+
+/* ---- the full lockup: mark over a two-line wordmark split by a gold rule -- */
+.lockup { display: inline-flex; flex-direction: column; align-items: center; gap: var(--s-2); }
+.lockup .bear { width: var(--lockup-mark, 140px); }
+.lockup__word {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--lockup-word, .8125rem);
+  letter-spacing: .16em;
+  line-height: 1.55;
+  text-align: center;
+  text-transform: uppercase;
+  color: currentColor;
+}
+.lockup__word span { display: block; }
+.lockup__word span:first-child {
+  padding-bottom: 3px;
+  border-bottom: 2px solid var(--brand-accent);
+}
+
+/* ============================================================================
+   Motion primitives
+   Reveals only hide content when JS is running, so a failed script can never
+   leave the page blank.
+   ========================================================================== */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-travel));
+  transition: opacity var(--dur-slow) var(--ease-out) var(--reveal-delay, 0ms),
+              transform var(--dur-slow) var(--ease-out) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.js [data-reveal].is-visible { opacity: 1; transform: none; will-change: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
