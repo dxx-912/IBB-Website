@@ -3,3 +3,18 @@
 
 # Local Claude Code settings (machine-specific paths)
 .claude/settings.local.json
+
+# Full-resolution photo masters (the web-sized exports are committed instead)
+assets/images/group photo homepage.jpg
+assets/images/Getty Image 586892388 Edited.jpg
+
+# Full-resolution headshot masters (the web-sized crops beside them are committed).
+# core.ignorecase is on here, so these key off shape, not case: the exports are all
+# single-word lower-case kebab .jpg, the masters are not.
+assets/images/team/* *
+assets/images/team/*_*
+assets/images/team/*.png
+assets/images/team/*.jpeg
+assets/images/team/Aayushi.jpg
+assets/images/team/Franco.jpg
+assets/images/team/Sanjiti.jpg

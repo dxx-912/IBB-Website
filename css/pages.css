@@ -29,7 +29,8 @@
     linear-gradient(105deg, rgba(13, 27, 62, .94) 0%, rgba(13, 27, 62, .82) 42%,
                             rgba(13, 27, 62, .5) 72%, rgba(13, 27, 62, .42) 100%),
     linear-gradient(to bottom, rgba(13, 27, 62, .55) 0%, rgba(13, 27, 62, 0) 28%,
-                               rgba(13, 27, 62, 0) 62%, rgba(13, 27, 62, .8) 100%);
+                               rgba(13, 27, 62, 0) 76%, rgba(13, 27, 62, .8) 91%,
+                               rgba(13, 27, 62, 1) 100%);
 }
 .hero__inner { max-width: 780px; }
 .hero__mark { width: 116px; color: var(--text-on-dark); margin-bottom: var(--s-4); }
@@ -54,19 +55,6 @@
   transform-origin: left center;
 }
 .hero .btn-row { margin-top: var(--s-6); }
-
-.hero__scroll {
-  position: absolute; left: 50%; bottom: var(--s-4); z-index: 1;
-  display: inline-flex; flex-direction: column; align-items: center; gap: 8px;
-  translate: -50% 0;
-  color: var(--text-on-dark-faint); text-decoration: none;
-  font-size: var(--fs-xs); letter-spacing: .16em; text-transform: uppercase;
-  transition: color var(--dur) var(--ease);
-}
-.hero__scroll:hover { color: #fff; }
-.hero__scroll svg { width: 18px; height: 18px; animation: nudge 2.4s var(--ease) infinite; }
-@keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
-@media (max-width: 767px) { .hero__scroll { display: none; } }
 
 /* hero entrance — resolves to a static state, never gates readability */
 .js .hero__mark, .js .hero__weare, .js .hero h1 .hero__name,
@@ -94,7 +82,6 @@
   .js .hero__rule, .js .hero__tagline, .js .hero .btn-row {
     opacity: 1; transform: none; animation: none; clip-path: none;
   }
-  .hero__scroll svg { animation: none; }
 }
 
 /* ============================== PAGE HERO =================================
@@ -103,24 +90,38 @@
    ========================================================================= */
 .page-hero {
   position: relative;
+  --hero-copy: 720px;               /* the text column; the mark lives on what's left */
   padding-block: calc(var(--nav-h) + var(--s-8)) var(--s-8);
   background: var(--brand-primary-dark);
   color: var(--text-on-dark-muted);
   overflow: hidden;
 }
-.page-hero::after {                 /* the mark, ghosted, as a quiet brand watermark */
-  content: ""; position: absolute; right: -60px; bottom: -70px;
-  width: 460px; aspect-ratio: var(--bear-ratio);
-  background-color: rgba(255, 255, 255, .045);
-  -webkit-mask-image: url(../assets/logo/bear.svg); mask-image: url(../assets/logo/bear.svg);
-  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
-  -webkit-mask-size: contain; mask-size: contain;
-  pointer-events: none;
-}
 .page-hero h1 { color: #fff; max-width: 16ch; }
 .page-hero .lede { margin-top: var(--s-3); color: var(--text-on-dark-muted); }
-.page-hero__inner { position: relative; z-index: 1; max-width: 720px; }
-@media (max-width: 767px) { .page-hero::after { width: 300px; right: -50px; bottom: -40px; } }
+.page-hero__inner { position: relative; z-index: 1; max-width: var(--hero-copy); }
+.page-hero::after {                 /* the mark, ghosted, as a quiet brand watermark */
+  content: ""; position: absolute; pointer-events: none;
+  /* Pinned by its LEFT edge to just past the copy, so it can never run under the
+     text however wide the window gets, and then over-sized so it runs off the
+     right of the block. The mark is two bears sharing a world map: the cut lands
+     about 70% across, which leaves the near bear whole and reads as the far one
+     continuing out of frame — cutting later clips the second bear's head, which
+     just looks broken. Its own ratio is taller than the strip it sits in, so on
+     the shorter heroes it grazes top and bottom too. */
+  --mark-left: calc(max(0px, (100% - var(--content)) / 2) + var(--gutter) + var(--hero-copy) + var(--s-6));
+  --mark-over: 1.43;                /* 1 / .7 — the share that hangs off the edge */
+  left: var(--mark-left);
+  top: 52%; transform: translateY(-50%);   /* 2% of the block height below centre */
+  width: calc((100% - var(--mark-left)) * var(--mark-over));
+  aspect-ratio: var(--bear-ratio);
+  background-color: rgba(255, 255, 255, .045);
+  -webkit-mask-image: url(../assets/logos/bear.svg); mask-image: url(../assets/logos/bear.svg);
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-position: center; mask-position: center;
+}
+/* Under this the copy takes the whole shell — no strip is left for the mark. */
+@media (max-width: 1023px) { .page-hero::after { content: none; } }
 
 /* ============================== SPLIT ROW ================================= */
 .split {
@@ -158,6 +159,37 @@
 @media (max-width: 767px) { .head-row { align-items: flex-start; gap: var(--s-4); } }
 
 /* ---- a photograph given the full content width, as it deserves ---------- */
+/* ============================ HERO DESCENT ================================
+   This band picks the hero's ink navy up at full strength and holds it behind
+   both the stats and the group photo, so the skyline resolves into a ground of
+   the same tone rather than into white.
+
+   The band ends on a clean edge: flat navy all the way down to the section
+   boundary, meeting the white section below with no ramp. The top padding is
+   cut to half the standard section rhythm — the hero above is the same navy,
+   so the stats can ride high without reading as crowded — while the bottom
+   keeps 85% so the photo is not pinched against the white edge.
+   ========================================================================= */
+.section--descent {
+  padding-block: calc(var(--section-y) * .5) calc(var(--section-y) * .85);
+  color: var(--text-on-dark-muted);
+  background: var(--brand-primary-dark);
+}
+/* the photo clears the stats by more than it would in a plain section, so the
+   band reads as one dark field rather than two stacked blocks */
+.section--descent .feature-photo { margin-top: calc(var(--s-12) * .85); isolation: isolate; }
+
+/* A navy wash over the group photo. Plain alpha rather than multiply: it lifts
+   the photo's blacks toward the band's own navy, which is what actually makes
+   it sit in the background instead of punching a bright rectangle through it. */
+.section--descent .feature-photo img { filter: saturate(.82); }
+.section--descent .feature-photo::before {
+  content: ""; position: absolute; inset: 0; z-index: 2;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(13, 27, 62, .36), rgba(13, 27, 62, .26));
+  pointer-events: none;
+}
+
 .feature-photo {
   position: relative;
   margin: var(--s-8) 0 0;
@@ -177,6 +209,86 @@
 @media (max-width: 767px) {
   .feature-photo { margin-top: var(--s-6); }
   .feature-photo::after { left: -8px; bottom: -8px; }
+}
+
+/* =========================== RECRUITMENT BAND =============================
+   The join page's timeline band runs tighter than the standard section rhythm
+   so the five stages read as one compact block, and gives the timeline a
+   companion column: a reserved frame that the recruitment graphic will fill.
+
+   The grid mirrors .lead-pair's columns and gap exactly, so the frame's column
+   lands directly beneath the lede paragraph above it and the two share a
+   centreline. Three things are being aligned here, and the row structure is
+   what makes each of them exact rather than eyeballed:
+
+   1. .recruit-grid__main is display:contents, so the timeline and the frame's
+      cell are siblings in the SAME grid row. The cell stretches to that row —
+      i.e. to the timeline's height — and the frame floats centred inside it,
+      out of flow, so the two centrelines coincide exactly. The frame is now the
+      taller of the two and overhangs the row by ~25px top and bottom; keeping
+      it out of flow means that overhang cannot push the button down and undo
+      the spacing in point 3.
+   2. Column 1 is max-content, i.e. exactly as wide as the timeline's longest
+      line (~324px) rather than the half-column the stages used to be stretched
+      across. The apply button sits in row 2 of that column and is centred
+      across it, which puts it on the timeline's true optical centre — centring
+      it on the half-column left it ~108px too far right, floating in the empty
+      space past the ends of the stage text.
+
+      Column 1 no longer matching .lead-pair's half-column is why the frame's
+      cell spans the whole grid and places the frame at 75% + gap/4 instead: on
+      a two-column grid of any width that expression IS the centre of the
+      second half-column, so the frame stays on the lede's centreline above it
+      no matter what column 1 does.
+   3. The band's bottom padding is carried by the button row itself
+      (--recruit-y above it, the same below it) instead of by the section, so
+      the button sits exactly midway between the timeline and the end of the
+      blue. row-gap is zeroed for the same reason — the grid gap is a column
+      gap only, or it would add itself to the space above the button.
+
+   Below 900px the frame drops away rather than stacking as a large empty box
+   under the timeline.
+   ========================================================================= */
+.section--recruit {
+  --recruit-y: calc(var(--section-y) * .72);
+  padding-block: var(--recruit-y) 0;
+}
+
+.recruit-grid {
+  --recruit-gap: clamp(var(--s-4), 5vw, var(--s-12));
+  margin-top: var(--s-8);
+  display: grid; align-items: center;
+  grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
+  column-gap: var(--recruit-gap);
+  row-gap: 0;
+}
+.recruit-grid__main { display: contents; }
+.recruit-grid .timeline { grid-area: 1 / 1; }
+.recruit-grid .recruit-frame-cell {
+  position: relative; pointer-events: none;
+  grid-column: 1 / -1; grid-row: 1;
+  align-self: stretch;
+}
+.recruit-grid__main .btn-row {
+  grid-area: 2 / 1;
+  justify-content: center;
+  margin-top: var(--recruit-y);
+  padding-bottom: var(--recruit-y);
+}
+
+.recruit-frame {
+  position: absolute;
+  top: 50%; left: calc(75% + var(--recruit-gap) / 4);
+  transform: translate(-50%, -50%);
+  height: clamp(384px, 41vw, 624px);
+  aspect-ratio: 4 / 5;
+  border: 1.5px dashed rgba(255, 255, 255, .28);
+  border-radius: var(--radius-lg);
+  background: rgba(13, 27, 62, .22);
+}
+@media (max-width: 899px) {
+  .recruit-grid { grid-template-columns: minmax(0, max-content); column-gap: 0; }
+  .recruit-grid .recruit-frame-cell { display: none; }
 }
 
 /* ============================== CTA BAND ==================================
@@ -227,19 +339,34 @@
    One card component for every member; the grid is what changes per tier.
    ========================================================================= */
 .team-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-6) var(--s-4); }
-.team-grid--members { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--s-3); }
-@media (max-width: 1199px) {
-  .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .team-grid--members { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-@media (max-width: 767px) {
-  .team-grid, .team-grid--members { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); }
-}
-@media (max-width: 479px) { .team-grid, .team-grid--members { grid-template-columns: minmax(0, 1fr); } }
-
-/* A trailing incomplete row is centred rather than left dangling. */
 .team-grid { justify-items: stretch; }
 .team-grid > .member { width: 100%; }
+
+/* The board sits three up, and twelve divides evenly by three (and by two, and by
+   one) — so every row of the board is full at every breakpoint. Its frames run
+   20% smaller on both axes; the 4/5 ratio ties height to width, so width does it. */
+.team-grid--board .member__frame { width: 80%; }
+
+/* Consultants wrap as flex rather than grid. A hand-maintained roster seldom
+   divides evenly into the column count, so the row that ends the list is usually
+   short. Flex centres that trailing row instead of leaving a run of empty cells
+   hanging off the right — whatever the count happens to be, which is why this
+   note names none. Column counts are unchanged; the widths below restate them. */
+.team-grid--members { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-3); }
+.team-grid--members > .member { width: calc((100% - var(--s-3) * 5) / 6); }
+
+@media (max-width: 1199px) {
+  .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .team-grid--members > .member { width: calc((100% - var(--s-3) * 2) / 3); }
+}
+@media (max-width: 767px) {
+  .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); }
+  .team-grid--members > .member { width: calc((100% - var(--s-3)) / 2); }
+}
+@media (max-width: 479px) {
+  .team-grid { grid-template-columns: minmax(0, 1fr); }
+  .team-grid--members > .member { width: 100%; }
+}
 
 .member { display: flex; flex-direction: column; }
 .member__frame {

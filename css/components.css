@@ -164,6 +164,15 @@
 
 .btn--sm { min-height: 40px; padding: 9px 18px; font-size: var(--fs-xs); }
 
+/* inert — the action exists but is not available yet (e.g. applications that
+   have not opened). Reads as a real button so the page still shows where the
+   action will be, but takes no click and no hover travel. */
+.btn[aria-disabled="true"] {
+  cursor: default; opacity: .55; box-shadow: none;
+  pointer-events: none;
+}
+.btn[aria-disabled="true"] .btn__arrow { display: none; }
+
 .btn-row { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; }
 
 /* ------------------------------------------------- section header --------- */
@@ -251,21 +260,89 @@
   .stats > :last-child:nth-child(odd) { grid-column: 1 / -1; }   /* centre a lone trailing stat */
 }
 
-/* ------------------------------------------------------- logo strip ------- */
-.logo-strip {
-  display: grid; grid-template-columns: repeat(9, minmax(0, 1fr));
-  align-items: center; gap: var(--s-3);
+/* --------------------------------------------------------- logo wall ------
+   The homepage placements wall: every mark knocked out to a flat white
+   silhouette on the navy, so 37 logos of wildly different colour, weight and
+   proportion read as one field instead of 37 competing brand palettes.
+
+   filter: brightness(0) invert(1) is what does the knockout — brightness(0)
+   crushes every colour to black, invert(1) flips that to white — and it keeps
+   the alpha channel, so what shows is the logo's silhouette. That only works
+   on art with a transparent ground: any logo still carrying an opaque plate
+   turns into a solid white brick. The ten that shipped that way (the JPEG app
+   icons, the Amex blue box, the white-backed PNGs) were re-cut to alpha in
+   assets/images/companies rather than special-cased here.
+
+   Six columns, not eight, so the wall runs long rather than wide, and with the
+   white plates gone each logo now spans the full cell — roughly 40% larger
+   than the plated version at the same container width.
+   ------------------------------------------------------------------------- */
+.logo-wall {
+  --cols: 6;
+  --wall-gap: var(--s-4);
+  margin-top: var(--s-8);
+  display: flex; flex-wrap: wrap; justify-content: center;
+  column-gap: var(--wall-gap);
+  row-gap: var(--s-6);
 }
-.logo-strip__item { display: flex; align-items: center; justify-content: center; }
-.logo-strip img {
-  width: 100%; height: auto;
-  mix-blend-mode: multiply;         /* the white plate drops out of a light ground */
-  filter: grayscale(1) opacity(.85);
-  transition: filter var(--dur) var(--ease), transform var(--dur) var(--ease);
+.logo-wall__item {
+  /* an exact 1/n of the row keeps full rows flush with the section edges the
+     way a grid would, while justify-content centres the short last row — 37 is
+     prime, so there is always one. */
+  flex: 0 0 calc((100% - (var(--cols) - 1) * var(--wall-gap)) / var(--cols));
+  display: flex; align-items: center; justify-content: center;
+  aspect-ratio: 2 / 1;
+  position: relative;
+  isolation: isolate;                 /* pins the plate below the mark, above the navy */
+  transition: transform var(--dur) var(--ease);
 }
-.logo-strip__item:hover img { filter: none; transform: scale(1.04); }
-@media (max-width: 1199px) { .logo-strip { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
-@media (max-width: 599px)  { .logo-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-2); } }
+/* The plate the mark lifts onto. Most of these logos are dark artwork, so their
+   real colours need a light ground to read against — on the navy they would just
+   disappear. It sits outside the mark's box so the logo keeps its resting size. */
+.logo-wall__item::before {
+  content: ""; position: absolute; z-index: -1;
+  inset: calc(var(--s-2) * -1) calc(var(--s-3) * -1);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow-lg);
+  opacity: 0; transform: scale(.94);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.logo-wall img {
+  width: 100%; height: 100%;
+  object-fit: contain;                /* true proportions, never stretched */
+  filter: brightness(0) invert(1);    /* knocked out to white on the navy ground */
+  transition: filter var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+.logo-wall__item:hover { transform: scale(1.08); z-index: 2; }
+.logo-wall__item:hover::before { opacity: 1; transform: scale(1); }
+.logo-wall__item:hover img { filter: none; }        /* the brand's own colours */
+
+/* Amex is a solid blue plaque with the wordmark reversed out of it, so no single
+   file serves both states — knocked out for the resting wall it collapses to a
+   plain white square. It alone keeps the white master at rest and cross-fades to
+   colour artwork on hover. The path sits here rather than in a custom property on
+   the element: a url() inside a custom property resolves against the stylesheet
+   that consumes it, not the HTML that declares it, so a document-relative path
+   there resolves to /css/... and 404s. */
+.logo-wall__item--swap::after {
+  content: ""; position: absolute; inset: 0;
+  background: url(../assets/images/companies/american-express-colour.svg) center / contain no-repeat;
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+.logo-wall__item--swap:hover::after { opacity: 1; }
+.logo-wall__item--swap:hover img { opacity: 0; }
+
+/* Each breakpoint is the width at which the next column down would push a cell
+   under ~120px, not a device size. */
+@media (max-width: 979px) { .logo-wall { --cols: 5; } }
+@media (max-width: 809px) { .logo-wall { --cols: 4; --wall-gap: var(--s-3); } }
+@media (max-width: 569px) { .logo-wall { --cols: 3; row-gap: var(--s-4); } }
+@media (prefers-reduced-motion: reduce) {   /* colour still changes, nothing moves */
+  .logo-wall__item:hover { transform: none; }
+  .logo-wall__item::before, .logo-wall__item:hover::before { transform: none; }
+}
 
 /* ------------------------------------------------------- testimonial ------ */
 .quote {
@@ -460,6 +537,10 @@
   border-top: 1px solid var(--border-subtle-dark);
   font-size: var(--fs-xs); color: var(--text-on-dark-faint);
 }
+/* The row is a flex line, so the global `p + p` top margin would push the
+   second paragraph half its own height below the first rather than stacking
+   anything — it reads as the email sitting lower than the copyright line. */
+.footer__bottom p { margin: 0; }
 .footer__bottom a { color: var(--text-on-dark-faint); text-decoration: none; }
 .footer__bottom a:hover { color: var(--brand-accent); }
 @media (max-width: 899px) {

@@ -4,18 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>International Business for Bruins — UCLA's global-minded consultancy</title>
-<meta name="description" content="International Business for Bruins is UCLA's Bruin-led consultancy for global-minded business. 50+ members from 30+ countries delivering data-driven strategy to real clients.">
+<meta name="description" content="International Business for Bruins is UCLA's Bruin-led consultancy for global-minded business. 60+ members from 15+ countries delivering data-driven strategy to real clients.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta property="og:title" content="International Business for Bruins">
 <meta property="og:description" content="UCLA's Bruin-led consultancy for global-minded business.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image" content="assets/logos/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="assets/img/hero-harbour.jpg">
+<link rel="preload" as="image" href="assets/images/hero-harbour.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
@@ -121,7 +121,7 @@
 
   <!-- ============================== hero ============================== -->
   <section class="hero on-dark">
-    <img class="hero__media" src="assets/img/hero-harbour.jpg" alt="" width="2200" height="965" fetchpriority="high">
+    <img class="hero__media" src="assets/images/hero-harbour.jpg" alt="" width="2106" height="1424" fetchpriority="high">
     <div class="hero__scrim" aria-hidden="true"></div>
     <div class="shell shell--wide">
       <div class="hero__inner">
@@ -142,14 +142,47 @@
         </div>
       </div>
     </div>
-    <a class="hero__scroll" href="#who">
-      More
-      <svg aria-hidden="true"><use href="#i-arrow-down"/></svg>
-    </a>
+  </section>
+
+  <!-- ===================== descent: the hero's navy field =====================
+       The hero's ink navy carries on behind both the stats and the group photo
+       at full strength, then ends on a clean edge against the white section
+       below — no ramp, and nothing sitting on a half-resolved background.
+       ========================================================================= -->
+  <section class="section section--descent on-dark">
+    <div class="shell">
+      <ul class="stats" data-reveal-group="90">
+        <li class="stat" data-reveal>
+          <span class="stat__num"><span data-count="15" data-suffix="+">15+</span></span>
+          <span class="stat__label">Countries</span>
+        </li>
+        <li class="stat" data-reveal>
+          <span class="stat__num"><span data-count="20" data-suffix="+">20+</span></span>
+          <span class="stat__label">Majors</span>
+        </li>
+        <li class="stat" data-reveal>
+          <span class="stat__num"><span data-count="120" data-suffix="+">120+</span></span>
+          <span class="stat__label">Alumni</span>
+        </li>
+        <li class="stat" data-reveal>
+          <span class="stat__num"><span data-count="60" data-suffix="+">60+</span></span>
+          <span class="stat__label">Members</span>
+        </li>
+        <li class="stat" data-reveal>
+          <span class="stat__num"><span data-count="1" data-suffix="">1</span></span>
+          <span class="stat__label">Team</span>
+        </li>
+      </ul>
+
+      <figure class="feature-photo" data-reveal style="--reveal-delay:200ms">
+        <img src="assets/images/group-arch.jpg" alt="The IBB membership gathered under the arches at UCLA."
+             width="2200" height="1100" loading="lazy" decoding="async">
+      </figure>
+    </div>
   </section>
 
   <!-- ============================ who we are ========================== -->
-  <section class="section section--white" id="who">
+  <section class="section section--white section--tight-top section--tight-bottom" id="who">
     <div class="shell">
       <div class="lead-pair">
         <div class="sec-head" data-reveal>
@@ -169,39 +202,6 @@
           </div>
         </div>
       </div>
-
-      <figure class="feature-photo" data-reveal style="--reveal-delay:200ms">
-        <img src="assets/img/group-arch.jpg" alt="The IBB membership gathered under the arches at UCLA."
-             width="1800" height="606" loading="lazy" decoding="async">
-      </figure>
-    </div>
-  </section>
-
-  <!-- ============================== stats ============================= -->
-  <section class="section section--tight section--navy">
-    <div class="shell">
-      <ul class="stats" data-reveal-group="90">
-        <li class="stat" data-reveal>
-          <span class="stat__num"><span data-count="30" data-suffix="+">30+</span></span>
-          <span class="stat__label">Countries</span>
-        </li>
-        <li class="stat" data-reveal>
-          <span class="stat__num"><span data-count="20" data-suffix="+">20+</span></span>
-          <span class="stat__label">Majors</span>
-        </li>
-        <li class="stat" data-reveal>
-          <span class="stat__num"><span data-count="100" data-suffix="+">100+</span></span>
-          <span class="stat__label">Alumni</span>
-        </li>
-        <li class="stat" data-reveal>
-          <span class="stat__num"><span data-count="50" data-suffix="+">50+</span></span>
-          <span class="stat__label">Members</span>
-        </li>
-        <li class="stat" data-reveal>
-          <span class="stat__num"><span data-count="1" data-suffix="">1</span></span>
-          <span class="stat__label">Team</span>
-        </li>
-      </ul>
     </div>
   </section>
 
@@ -258,24 +258,58 @@
     </div>
   </section>
 
-  <!-- =========================== where we go ========================== -->
-  <section class="section section--white">
-    <div class="shell shell--wide">
+  <!-- ===================== where our members land =====================
+       One unified wall — no industry columns, no category headers. Each logo
+       keeps its own brand colours, so every tile is a white plate on the navy
+       ground rather than a knocked-out monochrome silhouette. object-fit:contain
+       inside a fixed-ratio tile is what lets a 4.8:1 wordmark and a square app
+       mark share a grid without either being stretched. -->
+  <section class="section section--navy">
+    <div class="shell">
       <div class="sec-head sec-head--center" data-reveal>
-        <span class="kicker">Our network</span>
-        <h2>Where we go.</h2>
+        <span class="kicker">Member offers</span>
+        <h2>We send our members to&hellip;</h2>
         <hr class="sec-head__rule">
       </div>
-      <ul class="logo-strip" style="margin-top:var(--s-8)" data-reveal-group="60">
-        <li class="logo-strip__item" data-reveal><img src="assets/img/clients/tencent.png" alt="Tencent" width="440" height="152" loading="lazy"></li>
-        <li class="logo-strip__item" data-reveal><img src="assets/img/clients/analysis-group.png" alt="Analysis Group" width="440" height="152" loading="lazy"></li>
-        <li class="logo-strip__item" data-reveal><img src="assets/img/clients/cornerstone-research.png" alt="Cornerstone Research" width="440" height="152" loading="lazy"></li>
-        <li class="logo-strip__item" data-reveal><img src="assets/img/clients/ey.png" alt="EY" width="440" height="152" loading="lazy"></li>
-        <li class="logo-strip__item" data-reveal><img src="assets/img/clients/grant-thornton.png" alt="Grant Thornton" width="440" height="152" loading="lazy"></li>
-        <li class="logo-strip__item" data-reveal><img src="assets/img/clients/citi.png" alt="Citi" width="440" height="152" loading="lazy"></li>
-        <li class="logo-strip__item" data-reveal><img src="assets/img/clients/warner-bros.png" alt="Warner Bros." width="440" height="152" loading="lazy"></li>
-        <li class="logo-strip__item" data-reveal><img src="assets/img/clients/bloomberg.png" alt="Bloomberg" width="440" height="152" loading="lazy"></li>
-        <li class="logo-strip__item" data-reveal><img src="assets/img/clients/uob.png" alt="UOB" width="440" height="152" loading="lazy"></li>
+      <ul class="logo-wall" data-reveal-group="20">
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/accenture.svg" alt="Accenture" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/alixpartners.svg" alt="AlixPartners" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/alphasights.png" alt="AlphaSights" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/altman-solon.svg" alt="Altman Solon" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/amacon.png" alt="Amacon" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item logo-wall__item--swap" data-reveal><img src="assets/images/companies/american-express.png" alt="American Express" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/bank-of-america.svg" alt="Bank of America" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/bbva.svg" alt="BBVA" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/bcg.svg" alt="Boston Consulting Group" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/bloomberg.svg" alt="Bloomberg" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/capital-one.svg" alt="Capital One" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/citi.svg" alt="Citi" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/clearview-healthcare-partners.png" alt="ClearView Healthcare Partners" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/cmg-worldwide.png" alt="CMG Worldwide" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/coinbase.svg" alt="Coinbase" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/comcast.png" alt="Comcast" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/cornerstone-research.png" alt="Cornerstone Research" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/dbs.svg" alt="DBS Bank" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/deloitte.svg" alt="Deloitte" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/ey.svg" alt="EY" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/fidelity.svg" alt="Fidelity Investments" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/goldman-sachs.svg" alt="Goldman Sachs" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/hsbc.svg" alt="HSBC" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/intudo.png" alt="Intudo" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/intuit.svg" alt="Intuit" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/iqvia.svg" alt="IQVIA" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/kpmg.svg" alt="KPMG" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/mckinsey.svg" alt="McKinsey &amp; Company" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/nbc.svg" alt="NBC" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/nomura.svg" alt="Nomura" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/oliver-wyman.svg" alt="Oliver Wyman" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/oracle.svg" alt="Oracle" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/ramp.svg" alt="Ramp" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/societe-generale.svg" alt="Soci&eacute;t&eacute; G&eacute;n&eacute;rale" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/stifel.svg" alt="Stifel" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/walt-disney.svg" alt="The Walt Disney Company" loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/warner-bros.png" alt="Warner Bros." loading="lazy" decoding="async"></li>
+        <li class="logo-wall__item" data-reveal><img src="assets/images/companies/world-wide-technology.png" alt="World Wide Technology" loading="lazy" decoding="async"></li>
       </ul>
     </div>
   </section>
@@ -352,7 +386,7 @@
     </div>
 
     <div class="footer__bottom">
-      <p>&copy; <span data-year>2026</span> International Business for Bruins at UCLA.</p>
+      <p>&copy; <span data-year>2026</span> International Business for Bruins at UCLA &mdash; site by <a href="https://www.linkedin.com/in/dxing01/" rel="noopener" target="_blank">Daniel Xing</a></p>
       <p><a href="mailto:ibbatucla@gmail.com">ibbatucla@gmail.com</a></p>
     </div>
   </div>

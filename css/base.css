@@ -89,6 +89,11 @@ a:hover { color: var(--brand-primary); }
 
 .section { padding-block: var(--section-y); }
 .section--tight { padding-block: var(--section-y-tight); }
+/* Halves a section's top padding only. For blocks whose heading would otherwise
+   sit under a full section's worth of space stacked on whatever the preceding
+   block already pads with — which reads as a gap rather than a break. */
+.section--tight-top { padding-top: calc(var(--section-y) * .5); }
+.section--tight-bottom { padding-bottom: calc(var(--section-y) * .5); }
 
 /* Section ground colours — alternated down each page so no two adjacent
    sections share a background and dividers are never needed. */
@@ -139,8 +144,8 @@ a:hover { color: var(--brand-primary); }
   display: block;
   aspect-ratio: var(--bear-ratio);
   background-color: currentColor;
-  -webkit-mask-image: url(../assets/logo/bear.svg);
-          mask-image: url(../assets/logo/bear.svg);
+  -webkit-mask-image: url(../assets/logos/bear.svg);
+          mask-image: url(../assets/logos/bear.svg);
   -webkit-mask-repeat: no-repeat;   mask-repeat: no-repeat;
   -webkit-mask-position: center;    mask-position: center;
   -webkit-mask-size: contain;       mask-size: contain;
@@ -148,8 +153,8 @@ a:hover { color: var(--brand-primary); }
 /* Below ~48px the continent line work disappears; swap to the simplified mark. */
 .bear--simple {
   aspect-ratio: var(--bear-simple-ratio);
-  -webkit-mask-image: url(../assets/logo/bear-simple.svg);
-          mask-image: url(../assets/logo/bear-simple.svg);
+  -webkit-mask-image: url(../assets/logos/bear-simple.svg);
+          mask-image: url(../assets/logos/bear-simple.svg);
 }
 
 /* ---- the full lockup: mark over a two-line wordmark split by a gold rule -- */
