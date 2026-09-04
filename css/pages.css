@@ -377,7 +377,7 @@
   background: var(--brand-primary);
   box-shadow: var(--shadow-sm);
 }
-.member__frame img {
+.member__frame > img {          /* the portrait; the badge img is nested deeper */
   width: 100%; height: 100%; object-fit: cover;
   transition: transform var(--dur-slow) var(--ease), filter var(--dur-slow) var(--ease);
 }
@@ -388,8 +388,7 @@
   opacity: .55;
   transition: opacity var(--dur-slow) var(--ease);
 }
-.member:hover .member__frame img { transform: scale(1.045); }
-.member:hover .member__frame::after { opacity: .18; }
+.member:hover .member__frame > img { transform: scale(1.045); }
 
 /* monogram, for members with no photograph on the current site */
 .member__frame--empty {
@@ -413,6 +412,52 @@
   display: flex; align-items: center; gap: 6px;
 }
 .member__where svg { width: 13px; height: 13px; flex: none; opacity: .7; }
+
+/* ---- hover a card: the portrait drops to black and white behind a scrim, and
+   a LinkedIn chip rises in the middle. The whole frame is the click target —
+   the chip names the action rather than being the only thing you can hit. The
+   z-index matters: .member__frame::after is a pseudo-element, so it paints
+   after every child and would otherwise sit on top of the link. */
+.member__link {
+  position: absolute; inset: 0; z-index: 1;
+  display: grid; place-items: center;
+  background: rgba(0, 0, 0, .55);
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+.member__badge {                /* the official mark — already a circle, so no chip */
+  /* One knob: the ring and the gap are struck off --badge so the whole button
+     scales in proportion. border-box, so at 56px the mark lands at 46px inside
+     a 3px gap and a 2px ring — the gap is what makes the ring read as a button
+     edge rather than as part of the logo. */
+  --badge: 56px;
+  width: var(--badge); height: var(--badge);
+  padding: calc(var(--badge) * 3 / 56);
+  border: calc(var(--badge) * 2 / 56) solid rgba(255, 255, 255, .95);
+  border-radius: 50%;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .5);
+  transform: scale(.86);
+  transition: transform var(--dur) var(--ease);
+}
+/* Consultant cards run six to a row against the board's three, so the button
+   that suits a board portrait sits too heavy on them. */
+.team-grid--members .member__badge { --badge: 42px; }
+/* Greyscale is scoped to the portrait, and the scrim is neutral black rather than
+   the brand navy, so the whole card reads monochrome and the blue of the mark is
+   the only colour left. The duotone goes to zero for the same reason. */
+.member:hover .member__frame > img { filter: grayscale(1); }
+.member:hover .member__frame::after { opacity: 0; }
+.member:hover .member__link,
+.member__link:focus-visible { opacity: 1; }
+.member:hover .member__badge,
+.member__link:focus-visible .member__badge { transform: scale(1); }
+.member__link:focus-visible { outline: 3px solid var(--brand-accent); outline-offset: -3px; }
+
+/* Keyboard users get the same reveal on focus; pointer users on hover. */
+@media (prefers-reduced-motion: reduce) {
+  .member__badge, .member:hover .member__badge,
+  .member__link:focus-visible .member__badge { transform: none; }
+}
 
 .member[hidden] { display: none; }
 
