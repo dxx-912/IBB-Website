@@ -94,6 +94,8 @@ a:hover { color: var(--brand-primary); }
    block already pads with — which reads as a gap rather than a break. */
 .section--tight-top { padding-top: calc(var(--section-y) * .5); }
 .section--tight-bottom { padding-bottom: calc(var(--section-y) * .5); }
+/* Both sides at 80% of a full section, kept symmetric. */
+.section--y-80 { padding-block: calc(var(--section-y) * .8); }
 
 /* Section ground colours — alternated down each page so no two adjacent
    sections share a background and dividers are never needed. */

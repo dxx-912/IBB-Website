@@ -171,7 +171,7 @@
    keeps 85% so the photo is not pinched against the white edge.
    ========================================================================= */
 .section--descent {
-  padding-block: calc(var(--section-y) * .5) calc(var(--section-y) * .85);
+  padding-block: calc(var(--section-y) * .85);
   color: var(--text-on-dark-muted);
   background: var(--brand-primary-dark);
 }
