@@ -374,6 +374,61 @@
   .quote__logo { justify-content: flex-start; }
 }
 
+/* ----------------------------------------------- testimonial gallery ------ */
+/* A scroll-snap row of .quote cards, one per view. The track bleeds into the
+   shell gutter by --gallery-bleed on every side so the overflow does not clip
+   the cards' shadows, and the slide gap is twice that bleed so a neighbouring
+   card never peeks in at the edge. A flex row stretches every slide to the
+   tallest one, which keeps the section the same size on every testimonial. */
+.gallery { --gallery-bleed: min(var(--s-3), var(--gutter)); }
+.gallery__track {
+  position: relative;               /* offsetParent for the slides, see main.js */
+  display: flex; gap: calc(var(--gallery-bleed) * 2);
+  margin: calc(var(--gallery-bleed) * -1);
+  padding: var(--gallery-bleed);
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding-inline: var(--gallery-bleed);
+  scrollbar-width: none;
+}
+.gallery__track::-webkit-scrollbar { display: none; }
+.gallery__track:focus-visible { outline-offset: calc(var(--gallery-bleed) * -.5); border-radius: var(--radius-lg); }
+.gallery__slide { flex: 0 0 100%; scroll-snap-align: start; scroll-snap-stop: always; }
+
+/* the controls only mean something once main.js has wired them up */
+.gallery__controls {
+  display: none; align-items: center; justify-content: center; gap: var(--s-2);
+  margin-top: var(--s-4);
+}
+.js .gallery__controls { display: flex; }
+.gallery.is-single .gallery__controls { display: none; }
+
+.gallery__btn {
+  width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;
+  background: var(--surface-raised); color: var(--brand-primary);
+  border: 1.5px solid var(--border-subtle); border-radius: 50%;
+  box-shadow: var(--shadow-sm); cursor: pointer;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease),
+              border-color var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+.gallery__btn--prev svg { transform: scaleX(-1); }
+.gallery__btn:hover:not(:disabled) { background: var(--brand-primary); border-color: var(--brand-primary); color: #fff; }
+.gallery__btn:disabled { opacity: .4; box-shadow: none; cursor: default; }
+.gallery__btn:focus-visible { border-radius: 50%; }
+
+.gallery__dots { display: flex; align-items: center; }
+.gallery__dot {
+  min-width: 24px; height: 24px; padding: 0 4px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: none; border: 0; cursor: pointer;
+}
+.gallery__dot::before {
+  content: ""; width: 8px; height: 8px; border-radius: var(--radius-pill);
+  background: var(--text-muted); opacity: .35;
+  transition: width var(--dur) var(--ease), background var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+.gallery__dot:hover::before { opacity: .7; }
+.gallery__dot[aria-current="true"]::before { width: 22px; background: var(--brand-accent); opacity: 1; }
+
 /* ---------------------------------------------------------- steppers ------ */
 /* horizontal, for the client project timeline */
 .stepper { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-4); }
@@ -543,6 +598,7 @@
 .footer__bottom p { margin: 0; }
 .footer__bottom a { color: var(--text-on-dark-faint); text-decoration: none; }
 .footer__bottom a:hover { color: var(--brand-accent); }
+.footer__bottom .footer__credit { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 @media (max-width: 899px) {
   .footer__top { grid-template-columns: minmax(0, 1fr); gap: var(--s-6); padding-block: var(--s-8) var(--s-6); }
 }

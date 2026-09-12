@@ -109,8 +109,8 @@ list signup in the footer behaves the same way.
 lives in the Instagram bio, so that is where the Join Us CTA goes. Swap it for the real
 application URL when there is one.
 
-**3. The recruitment dates are Fall 2025**, copied verbatim from the current site. They
-need replacing for the current cycle (`join.html`, the `TIMELINE` section).
+**3. Recruitment locations are still TBD.** The Fall 2026 dates are in place, but each
+stage's location needs filling in once confirmed (`join.html`, the `.timeline` list).
 
 **4. Replace the extracted imagery with originals.** Screenshots were the only source
 available, so resolution is capped:

@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Work With Us — International Business for Bruins</title>
+<title>Work With Us, International Business for Bruins</title>
 <meta name="description" content="Pro bono consulting from UCLA's global-minded student consultancy: market research, growth strategy, financial analysis and more, in eight-week engagements.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<meta property="og:title" content="Work With Us — International Business for Bruins">
+<meta property="og:title" content="Work With Us, International Business for Bruins">
 <meta property="og:description" content="Pro bono consulting from UCLA's global-minded student consultancy: market research, growth strategy, financial analysis and more, in eight-week engagements.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/logos/og-image.png">
@@ -99,8 +99,8 @@
 <!-- ================================ nav ================================ -->
 <header class="nav nav--solid" id="nav">
   <div class="nav__inner">
-    <a class="nav__brand" href="index.html" aria-label="International Business for Bruins — home">
-      <span class="bear bear--simple" aria-hidden="true"></span>
+    <a class="nav__brand" href="index.html" aria-label="International Business for Bruins, home">
+      <span class="bear" aria-hidden="true"></span>
       <span class="nav__word" aria-hidden="true"><span>International</span><span>Business for Bruins</span></span>
     </a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
@@ -149,7 +149,7 @@
         <article class="card" data-reveal>
           <span class="card__icon"><svg aria-hidden="true"><use href="#i-bars"/></svg></span>
           <h3 class="card__title">Competitive Analysis</h3>
-          <p class="card__body">Map the competitive set — who else is winning in the category, on what basis, and where the openings are.</p>
+          <p class="card__body">Map the competitive set, who else is winning in the category, on what basis, and where the openings are.</p>
         </article>
         <article class="card" data-reveal>
           <span class="card__icon"><svg aria-hidden="true"><use href="#i-trend"/></svg></span>
@@ -203,26 +203,95 @@
   <section class="section section--light">
     <div class="shell">
       <div class="sec-head" data-reveal>
-        <span class="kicker">What clients say</span>
-        <h2>In their words.</h2>
+        <h2>Client testimonials.</h2>
       </div>
-      <figure class="quote" style="margin-top:var(--s-6)" data-reveal>
-        <div>
-          <span class="quote__mark" aria-hidden="true">&ldquo;</span>
-          <blockquote class="quote__text">
-            ONETrack International would like to thank the UCLA IBB team for supporting our projects
-            this semester. It was wonderful collaborating with such a professional and talented team,
-            and we are certain that their efforts will have an immense impact on our programs and the
-            families that we serve. Thank you UCLA IBB for everything you do to help the nonprofit
-            community.
-          </blockquote>
-          <figcaption class="quote__cite">ONETrack International</figcaption>
+
+      <!-- Swipeable testimonial gallery. The track is a native scroll-snap row, so
+           touch, trackpad and shift-scroll all work even without JS; main.js adds
+           the arrows, the dots and arrow-key steps. Every slide stretches to the
+           tallest one, so the section keeps the same size on every testimonial.
+           To add a client, copy a <figure> (keep .gallery__slide) and update the
+           "n of N" labels. -->
+      <div class="gallery" style="margin-top:var(--s-6)" data-gallery data-reveal>
+        <div class="gallery__track" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Client testimonials">
+          <figure class="quote gallery__slide" role="group" aria-roledescription="slide" aria-label="1 of 4">
+            <div>
+              <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+              <blockquote class="quote__text">
+                ONETrack International would like to thank the UCLA IBB team for supporting our projects
+                this semester. It was wonderful collaborating with such a professional and talented team,
+                and we are certain that their efforts will have an immense impact on our programs and the
+                families that we serve. Thank you UCLA IBB for everything you do to help the nonprofit
+                community.
+              </blockquote>
+              <figcaption class="quote__cite">ONETrack International</figcaption>
+            </div>
+            <div class="quote__logo">
+              <img src="assets/images/clients/onetrack-international.png" alt="ONETrack International"
+                   width="440" height="240" loading="lazy">
+            </div>
+          </figure>
+
+          <figure class="quote gallery__slide" role="group" aria-roledescription="slide" aria-label="2 of 4">
+            <div>
+              <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+              <blockquote class="quote__text">
+                Working with IBB. They are KILLER! The best of the best, amazing work ethic, smart,
+                receptive, easily understood the project at hand, executed in a very timely manner and
+                crushed it.
+              </blockquote>
+              <figcaption class="quote__cite">The Flair Collective</figcaption>
+            </div>
+            <div class="quote__logo">
+              <img src="assets/images/clients/flair-collective.png" alt="The Flair Collective"
+                   width="880" height="462" loading="lazy">
+            </div>
+          </figure>
+
+          <figure class="quote gallery__slide" role="group" aria-roledescription="slide" aria-label="3 of 4">
+            <div>
+              <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+              <blockquote class="quote__text">
+                Our Care Strategy team at Charlie Health wants to say that the group did a really nice job,
+                and we were very impressed with the materials. We found IBB&rsquo;s recommendations on
+                improving employees&rsquo; morale as well as streamlining therapists&rsquo; paperwork process
+                particularly helpful and we look forward to implementing them in the future.
+              </blockquote>
+              <figcaption class="quote__cite">Charlie Health</figcaption>
+            </div>
+            <div class="quote__logo">
+              <img src="assets/images/clients/charlie-health.png" alt="Charlie Health"
+                   width="576" height="209" loading="lazy">
+            </div>
+          </figure>
+
+          <figure class="quote gallery__slide" role="group" aria-roledescription="slide" aria-label="4 of 4">
+            <div>
+              <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+              <blockquote class="quote__text">
+                Working with your team was quite amazing. Everyone has a unique perspective to help grow
+                our business and I really enjoyed the team&rsquo;s energy. This is one-of-a-kind support
+                that every small business would really appreciate.
+              </blockquote>
+              <figcaption class="quote__cite">Nexabio Solutions</figcaption>
+            </div>
+            <div class="quote__logo">
+              <img src="assets/images/clients/nexabio-solutions.png" alt="Nexabio Solutions"
+                   width="430" height="248" loading="lazy">
+            </div>
+          </figure>
         </div>
-        <div class="quote__logo">
-          <img src="assets/images/clients/onetrack-international.png" alt="ONETrack International"
-               width="440" height="240" loading="lazy">
+
+        <div class="gallery__controls">
+          <button class="gallery__btn gallery__btn--prev" type="button" data-gallery-prev aria-label="Previous testimonial">
+            <svg width="18" height="18" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          </button>
+          <div class="gallery__dots"></div>
+          <button class="gallery__btn" type="button" data-gallery-next aria-label="Next testimonial">
+            <svg width="18" height="18" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          </button>
         </div>
-      </figure>
+      </div>
     </div>
   </section>
 
@@ -293,7 +362,7 @@
     </div>
 
     <div class="footer__bottom">
-      <p>&copy; <span data-year>2026</span> International Business for Bruins at UCLA &mdash; site by <a href="https://www.linkedin.com/in/dxing01/" rel="noopener" target="_blank">Daniel Xing</a></p>
+      <p>&copy; <span data-year>2026</span> International Business for Bruins at UCLA. Site by <a class="footer__credit" href="https://www.linkedin.com/in/dxing01/" rel="noopener" target="_blank">Daniel Xing</a></p>
       <p><a href="mailto:ibbatucla@gmail.com">ibbatucla@gmail.com</a></p>
     </div>
   </div>

@@ -197,7 +197,7 @@
         .then(function (r) { if (!r.ok) throw new Error("bad status"); return r; })
         .then(function () {
           form.reset();
-          if (status) { status.textContent = "Thank you — we'll be in touch shortly."; status.setAttribute("data-tone", "ok"); }
+          if (status) { status.textContent = "Thank you, we'll be in touch shortly."; status.setAttribute("data-tone", "ok"); }
         })
         .catch(function () {
           if (status) {
@@ -231,9 +231,70 @@
         window.location.href = "mailto:" + CONTACT_EMAIL +
           "?subject=" + encodeURIComponent("Mailing list signup") +
           "&body=" + encodeURIComponent("Please add " + input.value + " to the IBB mailing list.");
-        if (note) { note.textContent = "Thanks — confirm the email we just opened for you."; note.setAttribute("data-tone", "ok"); }
+        if (note) { note.textContent = "Thanks. Confirm the email we just opened for you."; note.setAttribute("data-tone", "ok"); }
         form.reset();
       });
+    });
+  }
+
+  /* -------------------------------------------------------------- gallery -- */
+  /* The swiping itself is a native scroll-snap track (touch, trackpad,
+     shift-wheel). This only adds the arrows, the dots and arrow-key steps, and
+     keeps them in sync with wherever the track comes to rest. */
+  function initGallery() {
+    $$("[data-gallery]").forEach(function (gallery) {
+      var track  = $(".gallery__track", gallery);
+      var slides = track ? $$(".gallery__slide", track) : [];
+      var prev   = $("[data-gallery-prev]", gallery);
+      var next   = $("[data-gallery-next]", gallery);
+      var dotBox = $(".gallery__dots", gallery);
+      if (slides.length < 2) { gallery.classList.add("is-single"); return; }
+
+      var current = 0;
+      var go = function (i) {
+        i = Math.max(0, Math.min(slides.length - 1, i));
+        track.scrollTo({
+          left: slides[i].offsetLeft - slides[0].offsetLeft,
+          behavior: reduced.matches ? "auto" : "smooth"
+        });
+      };
+
+      var dots = slides.map(function (slide, i) {
+        var dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "gallery__dot";
+        dot.setAttribute("aria-label", "Show testimonial " + (i + 1) + " of " + slides.length);
+        dot.addEventListener("click", function () { go(i); });
+        if (dotBox) dotBox.appendChild(dot);
+        return dot;
+      });
+
+      var sync = function () {
+        var step = slides[1].offsetLeft - slides[0].offsetLeft;
+        current = Math.max(0, Math.min(slides.length - 1, Math.round(track.scrollLeft / step)));
+        dots.forEach(function (dot, i) {
+          if (i === current) dot.setAttribute("aria-current", "true");
+          else dot.removeAttribute("aria-current");
+        });
+        if (prev) prev.disabled = current === 0;
+        if (next) next.disabled = current === slides.length - 1;
+      };
+
+      var queued = false;
+      track.addEventListener("scroll", function () {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(function () { queued = false; sync(); });
+      }, { passive: true });
+
+      if (prev) prev.addEventListener("click", function () { go(current - 1); });
+      if (next) next.addEventListener("click", function () { go(current + 1); });
+      track.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowLeft")  { e.preventDefault(); go(current - 1); }
+        if (e.key === "ArrowRight") { e.preventDefault(); go(current + 1); }
+      });
+      window.addEventListener("resize", sync);
+      sync();
     });
   }
 
@@ -244,7 +305,7 @@
 
   function init() {
     initNav(); initReveals(); initCounters(); initAccordion();
-    initForm(); initSignup(); initYear();
+    initGallery(); initForm(); initSignup(); initYear();
   }
 
   if (document.readyState === "loading") {

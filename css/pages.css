@@ -177,18 +177,7 @@
 }
 /* the photo clears the stats by more than it would in a plain section, so the
    band reads as one dark field rather than two stacked blocks */
-.section--descent .feature-photo { margin-top: calc(var(--s-12) * .85); isolation: isolate; }
-
-/* A navy wash over the group photo. Plain alpha rather than multiply: it lifts
-   the photo's blacks toward the band's own navy, which is what actually makes
-   it sit in the background instead of punching a bright rectangle through it. */
-.section--descent .feature-photo img { filter: saturate(.82); }
-.section--descent .feature-photo::before {
-  content: ""; position: absolute; inset: 0; z-index: 2;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(180deg, rgba(13, 27, 62, .36), rgba(13, 27, 62, .26));
-  pointer-events: none;
-}
+.section--descent .feature-photo { margin-top: calc(var(--s-12) * .85); }
 
 .feature-photo {
   position: relative;
